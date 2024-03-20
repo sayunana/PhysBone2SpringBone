@@ -9,7 +9,8 @@ PhysBone2SpringBoneは`VRCPhysBone`を`VRMSpringBone`、
 
 
 # 注意
-変換時にPhysBoneを削除
+変換時にPhysBoneを削除します。
+バックアップを取って実行することをオススメします。
 
 
 # サポート環境
