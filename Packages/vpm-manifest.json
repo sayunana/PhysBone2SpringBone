@@ -1,0 +1,42 @@
+{
+  "dependencies": {
+    "com.vrchat.avatars": {
+      "version": "3.5.1"
+    },
+    "com.vrmc.univrm": {
+      "version": "0.119.0"
+    },
+    "com.vrmc.vrmshaders": {
+      "version": "0.119.0"
+    }
+  },
+  "locked": {
+    "com.vrchat.avatars": {
+      "version": "3.5.1",
+      "dependencies": {
+        "com.vrchat.base": "3.5.1"
+      }
+    },
+    "com.vrchat.base": {
+      "version": "3.5.1",
+      "dependencies": {}
+    },
+    "com.vrmc.univrm": {
+      "version": "0.119.0",
+      "dependencies": {
+        "com.vrmc.vrmshaders": "0.119.0",
+        "com.vrmc.gltf": "0.119.0"
+      }
+    },
+    "com.vrmc.gltf": {
+      "version": "0.119.0",
+      "dependencies": {
+        "com.vrmc.vrmshaders": "0.119.0"
+      }
+    },
+    "com.vrmc.vrmshaders": {
+      "version": "0.119.0",
+      "dependencies": {}
+    }
+  }
+}
