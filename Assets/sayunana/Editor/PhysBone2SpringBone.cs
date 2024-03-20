@@ -48,13 +48,16 @@ namespace sayunana
                 {
                     var physBones = GetVRCPhysBones();
                     var physBonesColliders = GetVRCPhysBoneColliders();
-                    var secondary = root.transform.Find("secondary").gameObject;
 
                     //変換したコライダーをリスト化
                     Dictionary<VRCPhysBoneColliderBase, VRMSpringBoneColliderGroup> colliderDictionary =
                         new Dictionary<VRCPhysBoneColliderBase, VRMSpringBoneColliderGroup>();
 
-                    if (secondary == null)
+                    GameObject secondary;
+                    try
+                    {
+                        secondary = root.transform.Find("secondary").gameObject;
+                    }catch
                     {
                         secondary = new GameObject("secondary");
                         secondary.transform.parent = root.transform;
