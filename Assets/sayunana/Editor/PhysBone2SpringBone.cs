@@ -7,7 +7,7 @@ using VRM;
 
 namespace sayunana
 {
-    public class PhysBoneReplacement : EditorWindow
+    public class PhysBone2SpringBone : EditorWindow
     {
         private Editor _editor;
 
@@ -15,11 +15,11 @@ namespace sayunana
         private GameObject rotationTest;
         private bool debug;
 
-        [MenuItem("sayunana/PhysBoneReplacement")]
+        [MenuItem("sayunana/PhysBone2SpringBone")]
         static void Open()
         {
-            var window = GetWindow<PhysBoneReplacement>();
-            window.titleContent = new GUIContent("PhysBoneReplacement");
+            var window = GetWindow<PhysBone2SpringBone>();
+            window.titleContent = new GUIContent("PhysBone2SpringBone");
         }
 
         /// <Summary>
@@ -33,18 +33,18 @@ namespace sayunana
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
             buttonStyle.wordWrap = true;
 
-            GUILayout.Label("PhysBoneReplacement\n" +
+            GUILayout.Label("PhysBone2SpringBone\n" +
                             "このエディターではPhysBoneをSpringBoneに変換します。\n" +
                             "完全な変換ではなく適当な値を代入しているためVRChatと同様の挙動にはなりません。\n" +
                             "完全な変換をするためには手作業での修正が必要になります。", textStyle);
-            
+
             GUILayout.Space(50);
             root = (Animator)EditorGUILayout.ObjectField("アバターオブジェクト", root, typeof(Animator), true);
 
             if (root != null)
             {
                 //ボタン
-                if (GUILayout.Button("PhysBoneをVRMSpringBoneに付け替える", buttonStyle))
+                if (GUILayout.Button("PhysBoneをVRMSpringBoneに変換する", buttonStyle))
                 {
                     var physBones = GetVRCPhysBones();
                     var physBonesColliders = GetVRCPhysBoneColliders();
@@ -70,7 +70,7 @@ namespace sayunana
                             case VRCPhysBoneColliderBase.ShapeType.Sphere:
                             {
                                 var sphereCollider = new VRMSpringBoneColliderGroup.SphereCollider();
-                                
+
                                 //physBoneColliderがアタッチされているオブジェクトを判定
                                 //SpringBoneの場合ボーンに追加する必要がありそうなのでrootTransformにSpringBoneをアタッチする
                                 if (physBoneCollider.transform == physBoneCollider.rootTransform)
@@ -125,7 +125,7 @@ namespace sayunana
                                 var sphereCollider1 = new VRMSpringBoneColliderGroup.SphereCollider();
                                 var sphereCollider2 = new VRMSpringBoneColliderGroup.SphereCollider();
                                 Vector3 centerPos = Vector3.zero;
-                                
+
                                 //physBoneColliderがアタッチされているオブジェクトを判定
                                 //SpringBoneの場合ボーンに追加する必要がありそうなのでrootTransformにSpringBoneをアタッチする
                                 if (physBoneCollider.transform == physBoneCollider.rootTransform)
@@ -247,17 +247,27 @@ namespace sayunana
                                     colliderGroups.Add(colliderDictionary[collider]);
                                 }
                             }
+
                             vrmSpringBone.ColliderGroups = colliderGroups.ToArray();
                         }
-
-                        //DestroyImmediate(physBone);
                     }
 
                     #endregion
+
+                    //PhysBoneとColliderを削除
+                    foreach (var physBone in physBones)
+                    {
+                        DestroyImmediate(physBone);
+                    }
+
+                    foreach (var physBonesCollider in physBonesColliders)
+                    {
+                        DestroyImmediate(physBonesCollider);
+                    }
                 }
 
                 #region DEBUG
-                
+
                 GUILayout.Space(20);
                 debug = GUILayout.Toggle(debug, "DEBUG");
                 if (debug)
@@ -296,21 +306,21 @@ namespace sayunana
                             DestroyImmediate(vrmSpringBoneColliderGroup);
                         }
                     }
-                    
+
                     GUILayout.Space(10);
                     if (GUILayout.Button("VRCPhysBoneとVRCPhysBoneColliderをすべて無効化する", buttonStyle))
                     {
                         var vrcPhysBones = GetVRCPhysBones();
                         var vrcPhysBoneColliders = GetVRCPhysBoneColliders();
 
-                        foreach (var VRCPhysBone in vrcPhysBones)
+                        foreach (var vrcPhysBone in vrcPhysBones)
                         {
-                            VRCPhysBone.enabled = false;
+                            vrcPhysBone.enabled = false;
                         }
 
-                        foreach (var VRCPhysBoneCollider in vrcPhysBoneColliders)
+                        foreach (var vrcPhysBoneCollider in vrcPhysBoneColliders)
                         {
-                            VRCPhysBoneCollider.enabled = false;
+                            vrcPhysBoneCollider.enabled = false;
                         }
                     }
                 }
