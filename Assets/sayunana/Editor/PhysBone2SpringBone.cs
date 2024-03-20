@@ -57,7 +57,8 @@ namespace sayunana
                     try
                     {
                         secondary = root.transform.Find("secondary").gameObject;
-                    }catch
+                    }
+                    catch
                     {
                         secondary = new GameObject("secondary");
                         secondary.transform.parent = root.transform;
@@ -93,9 +94,23 @@ namespace sayunana
                                 }
                                 else
                                 {
-                                    if (!physBoneCollider.rootTransform.gameObject
-                                            .TryGetComponent<VRMSpringBoneColliderGroup>(
-                                                out vrmSpringBoneColliderGroup))
+                                    //physBoneColliderにrootTransformがアタッチされていない場合
+                                    //physBoneColliderのTransformを基準に値を設定する
+                                    if (physBoneCollider.rootTransform == null)
+                                    {
+                                        if (!physBoneCollider.transform.gameObject
+                                                .TryGetComponent<VRMSpringBoneColliderGroup>(
+                                                    out vrmSpringBoneColliderGroup))
+                                        {
+                                            vrmSpringBoneColliderGroup = physBoneCollider.transform.gameObject
+                                                .AddComponent<VRMSpringBoneColliderGroup>();
+                                            vrmSpringBoneColliderGroup.Colliders =
+                                                new VRMSpringBoneColliderGroup.SphereCollider[0];
+                                        }
+                                    }
+                                    else if (!physBoneCollider.rootTransform.gameObject
+                                                 .TryGetComponent<VRMSpringBoneColliderGroup>(
+                                                     out vrmSpringBoneColliderGroup))
                                     {
                                         vrmSpringBoneColliderGroup = physBoneCollider.rootTransform.gameObject
                                             .AddComponent<VRMSpringBoneColliderGroup>();
@@ -148,9 +163,23 @@ namespace sayunana
                                 }
                                 else
                                 {
-                                    if (!physBoneCollider.rootTransform.gameObject
-                                            .TryGetComponent<VRMSpringBoneColliderGroup>(
-                                                out vrmSpringBoneColliderGroup))
+                                    //physBoneColliderにrootTransformがアタッチされていない場合
+                                    //physBoneColliderのTransformを基準に値を設定する
+                                    if (physBoneCollider.rootTransform == null)
+                                    {
+                                        if (!physBoneCollider.transform.gameObject
+                                                .TryGetComponent<VRMSpringBoneColliderGroup>(
+                                                    out vrmSpringBoneColliderGroup))
+                                        {
+                                            vrmSpringBoneColliderGroup = physBoneCollider.transform.gameObject
+                                                .AddComponent<VRMSpringBoneColliderGroup>();
+                                            vrmSpringBoneColliderGroup.Colliders =
+                                                new VRMSpringBoneColliderGroup.SphereCollider[0];
+                                        }
+                                    }
+                                    else if (!physBoneCollider.rootTransform.gameObject
+                                                 .TryGetComponent<VRMSpringBoneColliderGroup>(
+                                                     out vrmSpringBoneColliderGroup))
                                     {
                                         vrmSpringBoneColliderGroup = physBoneCollider.rootTransform.gameObject
                                             .AddComponent<VRMSpringBoneColliderGroup>();
