@@ -2,8 +2,7 @@
     "name": "PhysBone2SpringBone",
     "rootNamespace": "",
     "references": [
-        "GUID:05dd262a0c0a2f841b8252c8c3815582",
-        "GUID:3456780c4fb2d324ab9c633d6f1b0ddb"
+        "GUID:05dd262a0c0a2f841b8252c8c3815582"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -15,11 +14,6 @@
     "versionDefines": [
         {
             "name": "com.vrmc.univrm",
-            "expression": "",
-            "define": ""
-        },
-        {
-            "name": "com.vrchat.base",
             "expression": "",
             "define": ""
         }
